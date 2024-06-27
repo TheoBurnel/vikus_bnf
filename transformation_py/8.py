@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Charger le fichier CSV
-df = pd.read_csv('ligne1.csv')
+df = pd.read_csv('donnees/keywords.csv')
 
 # Fonction pour convertir une date en demi-siècle
 def convert_to_half_century(year):
@@ -16,4 +16,4 @@ def convert_to_half_century(year):
 df['year'] = df['year'].apply(convert_to_half_century)
 
 # Sauvegarder les modifications dans un nouveau fichier CSV
-df.to_csv('data.csv', index=False)
+df.to_csv('data/data.csv', index=False)

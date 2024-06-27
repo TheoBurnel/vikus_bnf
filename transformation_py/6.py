@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 # Charger le fichier CSV
-file_path = 'prepared.csv'  # Remplacez par le chemin de votre fichier
+file_path = 'donnees/prepared.csv'  # Remplacez par le chemin de votre fichier
 df = pd.read_csv(file_path)
 
 # Dictionnaire pour stocker les lignes principales et les lignes supplémentaires
@@ -10,7 +10,7 @@ main_rows = {}
 additional_rows = {}
 
 # Colonnes à copier des lignes supplémentaires
-columns_to_copy = ['_analyse', '_type_description', '_motif', '_couleur', '_materiau', '_technologie', '_certitude', '_date_analyse', '_rapport', '_source']
+columns_to_copy = ['_analyse', '_type_description', '_motif', '_couleur', '_matériau', '_technologie', '_certitude', '_date_analyse', '_rapport', '_source']
 
 # Fonction pour extraire la base de l'identifiant (sans suffixe)
 def get_base_identifier(identifier):
@@ -59,7 +59,7 @@ for row in combined_rows:
 new_df = pd.DataFrame(combined_rows, columns=new_columns[:max_cols])
 
 # Sauvegarder le fichier réorganisé
-output_file_path = 'ligne1.csv'  # Remplacez par le chemin de sortie souhaité
+output_file_path = 'donnees/ligne1.csv'  # Remplacez par le chemin de sortie souhaité
 new_df.to_csv(output_file_path, index=False)
 
 print(f"Le fichier a été réorganisé et sauvegardé sous {output_file_path}")

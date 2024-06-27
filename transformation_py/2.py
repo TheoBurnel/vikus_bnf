@@ -5,7 +5,7 @@ chemin_fichier_entree_1 = 'donnees/artwork88.csv'
 chemin_fichier_entree_2 = 'donnees/artwork89.csv'
 
 # Chemin pour sauvegarder le fichier CSV filtré combiné
-chemin_fichier_sortie = 'images.csv'
+chemin_fichier_sortie = 'donnees/images.csv'
 
 # Fonction pour charger et traiter un fichier CSV
 def process_file(chemin_fichier):

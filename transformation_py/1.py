@@ -97,7 +97,7 @@ df2 = processer_fichier_entree('donnees/materiality88.csv')
 df_combined = pd.concat([df1, df2], ignore_index=True)
 
 # Chemin vers le fichier de sortie combiné (bases.csv)
-chemin_sortie = "bases.csv"
+chemin_sortie = "donnees/bases.csv"
 
 # Enregistrer le DataFrame combiné dans un nouveau fichier CSV
 df_combined.to_csv(chemin_sortie, index=False)

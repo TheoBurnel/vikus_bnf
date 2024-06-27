@@ -1,0 +1,50 @@
+import csv
+import os
+import requests
+
+# Définir les chemins de fichiers et dossiers
+csv_file_path = 'data/data.csv'  
+output_folder = './images'
+
+# Créer le dossier de sortie s'il n'existe pas
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Lire le fichier CSV avec le bon délimiteur
+with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=',')
+    
+    # Afficher les noms de colonnes pour vérification
+    print("Noms de colonnes trouvés dans le fichier CSV:", reader.fieldnames)
+    
+    for row in reader:
+        try:
+            image_url = row['_image']
+            image_name = row['id']
+            
+            # Vérifier si l'URL fournie est une API
+            if "api.art.rmngp.fr" in image_url:
+                api_response = requests.get(image_url)
+                api_response.raise_for_status()
+                data = api_response.json()
+                # Supposons que l'URL de l'image est dans le champ 'url_de_l_image' du JSON retourné par l'API
+                image_url = data['url_de_l_image']
+            
+            # Télécharger l'image
+            response = requests.get(image_url)
+            response.raise_for_status()  # Vérifie si la requête a réussi
+            image_extension = image_url.split('.')[-1]  # Obtient l'extension de l'image
+            image_path = os.path.join(output_folder, f"{image_name}.{image_extension}")
+
+            # Enregistrer l'image
+            with open(image_path, 'wb') as image_file:
+                image_file.write(response.content)
+            print(f"Téléchargé: {image_path}")
+        except KeyError as e:
+            print(f"Erreur: Colonne manquante dans le CSV: {e}")
+        except requests.exceptions.RequestException as e:
+            print(f"Erreur lors du téléchargement de l'image {image_url}: {e}")
+        except json.JSONDecodeError as e:
+            print(f"Erreur lors du décodage du JSON de l'API: {e}")
+
+print("Téléchargement terminé.")
